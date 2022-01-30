@@ -1,7 +1,6 @@
-import Instructions from '@/components/dom/Instructions'
 import dynamic from 'next/dynamic'
 
-const Box = dynamic(() => import('@/components/canvas/Box'), {
+const Sea = dynamic(() => import('@/components/canvas/Sea/Sea'), {
   ssr: false,
 })
 
@@ -9,14 +8,14 @@ const DOM = () => {
   return (
     // Step 5 - delete Instructions components
     // <Instructions />
-    <div>yo</div>
+    <div>sea</div>
   )
 }
 
 const R3F = () => {
   return (
     <>
-      <Box route='/dreams' />
+      <Sea route='/' />
     </>
   )
 }
@@ -35,7 +34,7 @@ export default Page
 export async function getStaticProps() {
   return {
     props: {
-      title: 'Box',
+      title: 'Dreams',
     },
   }
 }

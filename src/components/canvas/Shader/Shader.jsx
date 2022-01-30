@@ -9,10 +9,10 @@ import guid from 'short-uuid'
 import vertex from './glsl/shader.vert'
 import fragment from './glsl/shader.frag'
 
-const ColorShiftMaterial = shaderMaterial(
+const ColorShiftMaterial = new shaderMaterial(
   {
     time: 0,
-    color: new THREE.Color(0.05, 0.0, 0.025),
+    color: new THREE.Color(0.75, 0.0, 0.425),
   },
   vertex,
   fragment
@@ -44,11 +44,11 @@ const Shader = (props) => {
       ref={meshRef}
       scale={hovered ? 1.1 : 1}
       onClick={() => {
-        router.push(`/box`)
+        router.push(`/sea`)
       }}
       onPointerOver={(e) => setHover(true)}
       onPointerOut={(e) => setHover(false)}
-      {...props}
+    // {...props}
     >
       <boxBufferGeometry args={[1, 1, 1]} />
       {/* @ts-ignore */}

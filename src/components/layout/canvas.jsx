@@ -25,6 +25,7 @@ const LCanvas = ({ children }) => {
         position: 'absolute',
         top: 0,
       }}
+      camera={{ position: [0, 3, 8] }}
       onCreated={(state) => state.events.connect(dom.current)}
     >
       <LControl />
