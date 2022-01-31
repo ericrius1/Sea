@@ -1,7 +1,10 @@
 import useStore from '@/helpers/store'
 import { Plane, PositionalAudio, shaderMaterial, OrbitControls, Stars } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { useRef, useState } from 'react'
+import { useRef, useState, Suspense } from 'react'
+import { useLoader } from '@react-three/fiber'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+
 
 
 import vertex from './glsl/shader.vert'
@@ -9,24 +12,44 @@ import fragment from './glsl/shader.frag'
 
 const SeaComponent = ({ route }) => {
   const router = useStore((s) => s.router)
+  const gltf = useLoader(GLTFLoader, 'merkabah/scene.gltf')
   // This reference will give us direct access to the THREE.Mesh object
-  const mesh = useRef(null)
+  const box = useRef(null)
+  const ocean = useRef(null)
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false)
   // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) =>
-    mesh.current
-      ? (mesh.current.rotation.y = mesh.current.rotation.x += 0.01)
+  useFrame((state, delta) => {
+    box.current
+      ? (box.current.rotation.y = box.current.rotation.x += 0.01)
       : null
+    ocean.current
+      ? (ocean.current.rotation.z += hovered ? -0.001 : 0)
+      : null
+  }
+
+
   )
   // Return the view, these are regular Threejs elements expressed in JSX
   return (
     <>
-      <Plane args={[200, 200, 1026, 1026]} receiveShadow rotation-x={-Math.PI / 2} position={[0, 0, 0]}>
-        <meshPhysicalMaterial color='purple' />
+      <Plane args={[200, 200, 1026, 1026]}
+        receiveShadow
+        rotation-x={-Math.PI / 2}
+        position={[0, 0, 0]}
+        ref={ocean}>
+        <meshPhysicalMaterial color='purple' wireframe />
       </Plane>
+      <Suspense fallback={null}>
+        <primitive object={gltf.scene}
+          position={[0, 2, 0]}
+          scale={[.005, .005, .005]}
+          rotation={[0, Math.PI / 4, 0]}
+
+        />
+      </Suspense>
       <mesh
-        ref={mesh}
+        ref={box}
         onClick={() => router.push(route)}
         onPointerOver={() => setHover(true)}
         onPointerOut={() => setHover(false)}
