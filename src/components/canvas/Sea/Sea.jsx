@@ -6,8 +6,6 @@ import { useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { Merkabah } from '../merkabah'
 
-
-
 import vertex from './glsl/shader.vert'
 import fragment from './glsl/shader.frag'
 
@@ -30,8 +28,6 @@ const SeaComponent = ({ route }) => {
       ? (ocean.current.rotation.z += hovered ? -0.001 : 0)
       : null
   }
-
-
   )
   // Return the view, these are regular Threejs elements expressed in JSX
   return (
@@ -43,7 +39,7 @@ const SeaComponent = ({ route }) => {
         ref={ocean}>
         <meshPhysicalMaterial color='purple' wireframe />
       </Plane>
-      <Suspense fallback={<h1>Loading merkaba</h1>}>
+      <Suspense fallback={null}>
         <primitive object={gltf.scene}
           position={[0, 1, 0]}
           scale={[.05, .05, .05]}
@@ -63,7 +59,6 @@ const SeaComponent = ({ route }) => {
       </mesh>
       <directionalLight position={[5, 5, 5]} />
       <ambientLight />
-
     </>
   )
 }
