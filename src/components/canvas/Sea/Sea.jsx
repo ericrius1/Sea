@@ -15,7 +15,7 @@ const SeaComponent = ({ route }) => {
   // This reference will give us direct access to the THREE.Mesh object
   const box = useRef(null)
   const ocean = useRef(null)
-  const gltf = useLoader(GLTFLoader, 'merkaba/scene.gltf')
+  const gltf = useLoader(GLTFLoader, '/merkaba/scene.gltf')
 
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false)
