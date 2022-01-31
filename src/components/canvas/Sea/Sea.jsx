@@ -4,6 +4,7 @@ import { useFrame } from '@react-three/fiber'
 import { useRef, useState, Suspense } from 'react'
 import { useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { Merkabah } from '../merkabah'
 
 
 
