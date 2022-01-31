@@ -13,7 +13,7 @@ import fragment from './glsl/shader.frag'
 
 const SeaComponent = ({ route }) => {
   const router = useStore((s) => s.router)
-  const gltf = useLoader(GLTFLoader, 'merkabah/scene.gltf')
+  // const gltf = useLoader(GLTFLoader, 'merkabah/scene.gltf')
   // This reference will give us direct access to the THREE.Mesh object
   const box = useRef(null)
   const ocean = useRef(null)
@@ -41,14 +41,14 @@ const SeaComponent = ({ route }) => {
         ref={ocean}>
         <meshPhysicalMaterial color='purple' wireframe />
       </Plane>
-      <Suspense fallback={null}>
+      {/* <Suspense fallback={null}>
         <primitive object={gltf.scene}
           position={[0, 2, 0]}
           scale={[.005, .005, .005]}
           rotation={[0, Math.PI / 4, 0]}
 
         />
-      </Suspense>
+      </Suspense> */}
       <mesh
         ref={box}
         onClick={() => router.push(route)}
