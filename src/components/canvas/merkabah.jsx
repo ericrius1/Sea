@@ -7,13 +7,11 @@ const Merkabah = () => {
   const gltf = useLoader(GLTFLoader, 'merkabah/scene.gltf')
   return (
     <>
-      <Suspense fallback={null}>
-        <primitive object={gltf.scene}
-          position={[0, 2, 0]}
-          scale={[.005, .005, .005]}
-          rotation={[0, Math.PI / 4, 0]}
-        />
-      </Suspense>
+      <primitive object={gltf.scene}
+        position={[0, 2, 0]}
+        scale={[.005, .005, .005]}
+        rotation={[0, Math.PI / 4, 0]}
+      />
     </>
   )
 }

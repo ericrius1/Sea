@@ -39,14 +39,12 @@ const SeaComponent = ({ route }) => {
         ref={ocean}>
         <meshPhysicalMaterial color='purple' wireframe />
       </Plane>
-      <Suspense fallback={null}>
-        <primitive object={gltf.scene}
-          position={[0, 1, 0]}
-          scale={[.05, .05, .05]}
-          rotation={[0, Math.PI / 4, 0]}
+      <primitive object={gltf.scene}
+        position={[0, 1, 0]}
+        scale={[.05, .05, .05]}
+        rotation={[0, Math.PI / 4, 0]}
 
-        />
-      </Suspense>
+      />
       <mesh
         ref={box}
         onClick={() => router.push(route)}
