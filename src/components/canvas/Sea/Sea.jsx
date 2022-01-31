@@ -15,6 +15,8 @@ const SeaComponent = ({ route }) => {
   // This reference will give us direct access to the THREE.Mesh object
   const box = useRef(null)
   const ocean = useRef(null)
+  const merkaba = useRef(null);
+
   const gltf = useLoader(GLTFLoader, '/merkaba/scene.gltf')
 
   // Set up state for the hovered and active state
@@ -24,9 +26,15 @@ const SeaComponent = ({ route }) => {
     box.current
       ? (box.current.rotation.y = box.current.rotation.x += 0.01)
       : null
-    ocean.current
-      ? (ocean.current.rotation.z += hovered ? -0.001 : 0)
-      : null
+    // ocean.current
+    //   ? (ocean.current.rotation.z += hovered ? -0.01 : 0)
+    //   : null
+    if (merkaba.current && hovered) {
+      merkaba.current.rotation.x += 0.004;
+      merkaba.current.rotation.y -= 0.01;
+      merkaba.current.rotation.z -= 0.002;
+
+    }
   }
   )
   // Return the view, these are regular Threejs elements expressed in JSX
@@ -40,9 +48,10 @@ const SeaComponent = ({ route }) => {
         <meshPhysicalMaterial color='purple' wireframe />
       </Plane>
       <primitive object={gltf.scene}
+        ref={merkaba}
         position={[0, 1, 0]}
         scale={[.05, .05, .05]}
-        rotation={[0, Math.PI / 4, 0]}
+      // rotation={hovered? :[0, Math.PI / 4, 0]}
 
       />
       <mesh

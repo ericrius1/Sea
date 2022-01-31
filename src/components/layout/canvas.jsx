@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Preload } from '@react-three/drei'
 import useStore from '@/helpers/store'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, Suspense } from 'react'
 
 const LControl = () => {
   const dom = useStore((state) => state.dom)
@@ -28,9 +28,11 @@ const LCanvas = ({ children }) => {
       camera={{ position: [0, 3, 8], fov: 75, far: 10000 }}
       onCreated={(state) => state.events.connect(dom.current)}
     >
-      <LControl />
-      <Preload all />
-      {children}
+      <Suspense fallback={null}>
+        <LControl />
+        <Preload all />
+        {children}
+      </Suspense>
     </Canvas>
   )
 }
