@@ -1,10 +1,10 @@
 import useStore from '@/helpers/store'
-import { Plane, PositionalAudio, shaderMaterial, OrbitControls, Stars } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
+import { Plane, shaderMaterial } from '@react-three/drei'
+import { useFrame, extend } from '@react-three/fiber'
 import { useRef, useState, Suspense } from 'react'
-import { useLoader } from '@react-three/fiber'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-// import { Merkabah } from '../merkabah'
+import Merkaba from '../merkaba'
+import guid from 'short-uuid'
+import { Color } from 'three'
 
 import vertex from './glsl/shader.vert'
 import fragment from './glsl/shader.frag'
@@ -15,9 +15,7 @@ const SeaComponent = ({ route }) => {
   // This reference will give us direct access to the THREE.Mesh object
   const box = useRef(null)
   const ocean = useRef(null)
-  const merkaba = useRef(null);
 
-  const gltf = useLoader(GLTFLoader, '/merkaba/scene.gltf')
 
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false)
@@ -29,12 +27,7 @@ const SeaComponent = ({ route }) => {
     // ocean.current
     //   ? (ocean.current.rotation.z += hovered ? -0.01 : 0)
     //   : null
-    if (merkaba.current && hovered) {
-      merkaba.current.rotation.x += 0.004;
-      merkaba.current.rotation.y -= 0.01;
-      merkaba.current.rotation.z -= 0.002;
 
-    }
   }
   )
   // Return the view, these are regular Threejs elements expressed in JSX
@@ -43,17 +36,19 @@ const SeaComponent = ({ route }) => {
       <Plane args={[200, 200, 1026, 1026]}
         receiveShadow
         rotation-x={-Math.PI / 2}
-        position={[0, 0, 0]}
+        position={[0, 0.5, 0]}
         ref={ocean}>
         <meshPhysicalMaterial color='purple' wireframe />
       </Plane>
-      <primitive object={gltf.scene}
-        ref={merkaba}
-        position={[0, 1, 0]}
-        scale={[.05, .05, .05]}
-      // rotation={hovered? :[0, Math.PI / 4, 0]}
+      <Suspense fallback={null}>
+        <Merkaba
+          scale={.02}
+          rotation={[Math.PI / 4, 0, 0]}
+        >
 
-      />
+        </Merkaba>
+      </Suspense>
+
       <mesh
         ref={box}
         onClick={() => router.push(route)}
@@ -69,4 +64,28 @@ const SeaComponent = ({ route }) => {
     </>
   )
 }
+
+const SeaMaterial = new shaderMaterial(
+  {
+    uTime: 1,
+    uBigWavesElevation: 0.8,
+    uBigWavesFrequency: [0.2, 0.7],
+    uBigWavesSpeed: 0.75,
+    uSurfaceColor: new Color('#c1e4fe'),
+    uDepthColor: new Color('#0066b3'),
+    uColorOffset: 0.08,
+    uColorMultiplier: 1.4,
+    uSmallWavesElevation: 0.15,
+    uSmallWavesFrequency: 3,
+    uSmallWavesSpeed: 0.2,
+    uSmallIterations: 4,
+  },
+  vertex,
+  fragment
+)
+
+// SeaMaterial.key = Math.random();
+
+// extend({ SeaMaterial })
+
 export default SeaComponent
