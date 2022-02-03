@@ -1,9 +1,10 @@
 import useStore from '@/helpers/store'
-import { Plane, shaderMaterial } from '@react-three/drei'
+import { Plane, shaderMaterial, Stars, Stage } from '@react-three/drei'
 import { useFrame, extend } from '@react-three/fiber'
 import { useRef, useState, Suspense } from 'react'
-import { folder, useControls } from 'leva'
-import Merkaba from '../merkaba'
+import { Leva, folder, useControls } from 'leva'
+import Merkaba from '../Merkaba'
+import Pyramid from '@/components/Pyramid'
 import guid from 'short-uuid'
 import { Color } from 'three'
 
@@ -41,20 +42,23 @@ const SeaComponent = ({ route }) => {
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false)
   // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => {
-    box.current
-      ? (box.current.rotation.y = box.current.rotation.x += 0.01)
-      : null
-    // ocean.current
-    //   ? (ocean.current.rotation.z += hovered ? -0.01 : 0)
-    //   : null
-    animate && (shaderRef.current.uTime += delta)
+  // useFrame((state, delta) => {
+  //   box.current
+  //     ? (box.current.rotation.y = box.current.rotation.x += 0.01)
+  //     : null
+  //   ocean.current
+  //     ? (ocean.current.rotation.z += hovered ? -0.01 : 0)
+  //     : null
+  //   animate && (shaderRef.current.uTime += delta)
 
-  }
-  )
+  // }
+
   // Return the view, these are regular Threejs elements expressed in JSX
   return (
     <>
+      <Leva
+        hidden
+      />
       <Plane args={[200, 200, 1026, 1026]}
         receiveShadow
         rotation-x={-Math.PI / 2}
@@ -77,6 +81,8 @@ const SeaComponent = ({ route }) => {
         />
       </Plane>
 
+      <Stars radius={100} depth={50} count={10000} factor={4} saturation={10} fade />
+      <color attach="background" args={['#141852']} />
       <Suspense fallback={null}>
         <Merkaba
           scale={.02}
@@ -84,6 +90,9 @@ const SeaComponent = ({ route }) => {
         >
         </Merkaba>
       </Suspense>
+
+      <Pyramid />
+
 
       <mesh
         ref={box}
