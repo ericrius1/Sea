@@ -31,7 +31,7 @@ const SeaComponent = ({ route }) => {
     smallWavesElevation,
     smallWavesFrequency,
     smallWavesSpeed,
-    smallIterations,
+    smallIterations
   } = useControls({
     animate: true,
     colors: folder({ surfaceColor: '#c1e4fe', depthColor: '#0066b3', colorOffset: 0.08, colorMultiplier: 1.4 }),
@@ -44,16 +44,15 @@ const SeaComponent = ({ route }) => {
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false)
   // Subscribe this component to the render-loop, rotate the mesh every frame
-  // useFrame((state, delta) => {
-  //   box.current
-  //     ? (box.current.rotation.y = box.current.rotation.x += 0.01)
-  //     : null
-  //   ocean.current
-  //     ? (ocean.current.rotation.z += hovered ? -0.01 : 0)
-  //     : null
-  //   animate && (shaderRef.current.uTime += delta)
-
-  // }
+  useFrame((state, delta) => {
+    box.current
+      ? (box.current.rotation.y = box.current.rotation.x += 0.01)
+      : null
+    ocean.current
+      ? (ocean.current.rotation.z += hovered ? -0.01 : 0)
+      : null
+    animate && (shaderRef.current.uTime += delta)
+  })
 
   // Return the view, these are regular Threejs elements expressed in JSX
   return (
