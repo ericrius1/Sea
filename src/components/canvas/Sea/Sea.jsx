@@ -8,6 +8,8 @@ import Pyramid from '@/components/Pyramid'
 import guid from 'short-uuid'
 import { Color } from 'three'
 
+import { Stats } from '@react-three/drei'
+
 import vertex from './glsl/shader.vert'
 import fragment from './glsl/shader.frag'
 
@@ -56,6 +58,7 @@ const SeaComponent = ({ route }) => {
   // Return the view, these are regular Threejs elements expressed in JSX
   return (
     <>
+      <Stats></Stats>
       <Leva
         hidden
       />
