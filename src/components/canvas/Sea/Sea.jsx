@@ -3,8 +3,8 @@ import { Plane, shaderMaterial, Stars, Stage } from '@react-three/drei'
 import { useFrame, extend } from '@react-three/fiber'
 import { useRef, useState, Suspense } from 'react'
 import { Leva, folder, useControls } from 'leva'
-import Merkaba from '../Merkaba'
 import Pyramid from '@/components/Pyramid'
+import Merkaba from '@/components/Merkaba'
 import guid from 'short-uuid'
 import { Color } from 'three'
 
@@ -48,9 +48,7 @@ const SeaComponent = ({ route }) => {
     box.current
       ? (box.current.rotation.y = box.current.rotation.x += 0.01)
       : null
-    ocean.current
-      ? (ocean.current.rotation.z += hovered ? -0.01 : 0)
-      : null
+
     animate && (shaderRef.current.uTime += delta)
   })
 

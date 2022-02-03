@@ -5,8 +5,8 @@ import { useSpring, animated, config } from "@react-spring/three";
 export default function Pyramid({ ...props }) {
   const [active, setActive] = useState(false);
   const { scale, rotation } = useSpring({
-    loop: true,
-    scale: active ? 1.5 : 1,
+    // loop: true,
+    scale: active ? 2.5 : 1,
     rotation: active ? [Math.random() * 3, Math.random() * 3, Math.random() * 3] : [Math.random(), Math.random(), Math.random()],
     config: config.wobblt
   })
