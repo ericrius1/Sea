@@ -5,6 +5,7 @@ import { useRef, useState, Suspense } from 'react'
 import { Leva, folder, useControls } from 'leva'
 import Pyramid from '@/components/Pyramid'
 import Merkaba from '@/components/Merkaba'
+import { Particles } from '@/components/Particles/Particles'
 import guid from 'short-uuid'
 import { Color } from 'three'
 
@@ -31,7 +32,7 @@ const SeaComponent = ({ route }) => {
     smallWavesElevation,
     smallWavesFrequency,
     smallWavesSpeed,
-    smallIterations
+    smallIterations,
   } = useControls({
     animate: true,
     colors: folder({ surfaceColor: '#c1e4fe', depthColor: '#0066b3', colorOffset: 0.08, colorMultiplier: 1.4 }),
@@ -39,16 +40,15 @@ const SeaComponent = ({ route }) => {
     smallWaves: folder({ smallWavesElevation: 0.15, smallWavesFrequency: 3, smallWavesSpeed: 0.2, smallIterations: 4 }),
   })
 
+
+  // const props = 
+
   const shaderRef = useRef()
 
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false)
   // Subscribe this component to the render-loop, rotate the mesh every frame
   useFrame((state, delta) => {
-    box.current
-      ? (box.current.rotation.y = box.current.rotation.x += 0.01)
-      : null
-
     animate && (shaderRef.current.uTime += delta)
   })
 
@@ -56,9 +56,7 @@ const SeaComponent = ({ route }) => {
   return (
     <>
       <Stats></Stats>
-      <Leva
-        hidden
-      />
+      {/* <Leva/> */}
       <Plane args={[200, 200, 1026, 1026]}
         receiveShadow
         rotation-x={-Math.PI / 2}
@@ -81,7 +79,7 @@ const SeaComponent = ({ route }) => {
         />
       </Plane>
 
-      <Stars radius={100} depth={50} count={10000} factor={4} saturation={10} fade />
+      {/* <Stars radius={100} depth={50} count={10000} factor={4} saturation={10} fade /> */}
       <color attach="background" args={['#141852']} />
       <Suspense fallback={null}>
         <Merkaba
@@ -92,16 +90,24 @@ const SeaComponent = ({ route }) => {
       </Suspense>
 
       <Pyramid />
+      <Particles
+        focus={5.1}
+        speed={1}
+        aperture={1.8}
+        fov={60}
+        curl={0.25}
+        position={[0, 3, 0]}
+      />
 
 
       <mesh
         ref={box}
-        onClick={() => router.push(route)}
+        // onClick={() => router.push(route)}
         onPointerOver={() => setHover(true)}
         onPointerOut={() => setHover(false)}
         scale={hovered ? 1.1 : 1}
       >
-        <boxBufferGeometry args={[1, 1, 1]} />
+        <boxBufferGeometry args={[.1, .1, .1]} />
         <meshPhysicalMaterial color={route === '/' ? 'orange' : 'hotpink'} />
       </mesh>
       <directionalLight position={[5, 5, 5]} />

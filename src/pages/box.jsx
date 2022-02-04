@@ -16,7 +16,7 @@ const DOM = () => {
 const R3F = () => {
   return (
     <>
-      <Box route='/dreams' />
+      <Box route='/sea' />
     </>
   )
 }
