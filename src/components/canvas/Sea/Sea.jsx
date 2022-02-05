@@ -44,7 +44,7 @@ const SeaComponent = ({ route }) => {
   const [hovered, setHover] = useState(false)
   // Subscribe this component to the render-loop, rotate the mesh every frame
   useFrame((state, delta) => {
-    animate && (shaderRef.current.uTime += delta)
+    // animate && (shaderRef.current.uTime += delta)
   })
 
   // Return the view, these are regular Threejs elements expressed in JSX
@@ -52,7 +52,7 @@ const SeaComponent = ({ route }) => {
     <>
       <Stats></Stats>
       {/* <Leva/> */}
-      <Plane args={[100, 100, 100, 100]}
+      {/* <Plane args={[100, 100, 100, 100]}
         receiveShadow
         rotation-x={-Math.PI / 2}
         position={[0, 0.5, 0]}
@@ -69,7 +69,7 @@ const SeaComponent = ({ route }) => {
           uColorOffset={colorOffset}
           uColorMultiplier={colorMultiplier}
         />
-      </Plane>
+      </Plane> */}
 
       {/* <Stars radius={100} depth={50} count={10000} factor={4} saturation={10} fade /> */}
       <color attach="background" args={['#141852']} />
@@ -82,7 +82,7 @@ const SeaComponent = ({ route }) => {
       </Suspense>
 
       {/* <Pyramid /> */}
-      <Particles
+      {/* <Particles
         focus={5.1}
         speed={0.07}
         aperture={1.8}
@@ -90,7 +90,7 @@ const SeaComponent = ({ route }) => {
         curl={0.11}
         position={[0, 3, 0]}
         size={512}
-      />
+      /> */}
 
 
 
