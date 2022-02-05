@@ -48,7 +48,7 @@ const Shader = (props) => {
       }}
       onPointerOver={(e) => setHover(true)}
       onPointerOut={(e) => setHover(false)}
-    // {...props}
+      {...props}
     >
       <boxBufferGeometry args={[1, 1, 1]} />
       {/* @ts-ignore */}

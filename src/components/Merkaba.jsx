@@ -23,7 +23,8 @@ export default function Merkaba({ ...props }) {
             <group rotation={[Math.PI / 2, 0, 0]} />
           </group>
           <group position={[-0.16, 42.45, 1.28]} rotation={[-Math.PI / 2, 0, 0]}>
-            <mesh geometry={nodes['Hedra002_01_-_Default_0'].geometry} material={materials['01_-_Default']} />
+            <mesh geometry={nodes['Hedra002_01_-_Default_0'].geometry}
+              material={materials['01_-_Default']} material-wireframe />
           </group>
         </group>
       </group>

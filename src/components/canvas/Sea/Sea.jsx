@@ -28,16 +28,11 @@ const SeaComponent = ({ route }) => {
     surfaceColor,
     depthColor,
     colorOffset,
-    colorMultiplier,
-    smallWavesElevation,
-    smallWavesFrequency,
-    smallWavesSpeed,
-    smallIterations,
+    colorMultiplier
   } = useControls({
     animate: true,
-    colors: folder({ surfaceColor: '#c1e4fe', depthColor: '#0066b3', colorOffset: 0.08, colorMultiplier: 1.4 }),
-    bigWaves: folder({ bigWavesElevation: 0.8, bigWavesFrequency: [0.2, 0.7,], bigWaveSpeed: 0.75 }),
-    smallWaves: folder({ smallWavesElevation: 0.15, smallWavesFrequency: 3, smallWavesSpeed: 0.2, smallIterations: 4 }),
+    colors: folder({ surfaceColor: '#ffd183', depthColor: '#0066b3', colorOffset: 0.08, colorMultiplier: 2.4 }),
+    bigWaves: folder({ bigWavesElevation: 1.8, bigWavesFrequency: [0.2, 0.7,], bigWaveSpeed: 0.75 }),
   })
 
 
@@ -57,7 +52,7 @@ const SeaComponent = ({ route }) => {
     <>
       <Stats></Stats>
       {/* <Leva/> */}
-      <Plane args={[200, 200, 1026, 1026]}
+      <Plane args={[100, 100, 100, 100]}
         receiveShadow
         rotation-x={-Math.PI / 2}
         position={[0, 0.5, 0]}
@@ -65,6 +60,7 @@ const SeaComponent = ({ route }) => {
         <seaMaterial
           key={SeaMaterial.key}
           ref={shaderRef}
+          // wireframe
           uBigWavesElevation={bigWavesElevation}
           uBigWavesFrequency={bigWavesFrequency}
           uBigWavesSpeed={bigWaveSpeed}
@@ -72,10 +68,6 @@ const SeaComponent = ({ route }) => {
           uDepthColor={depthColor}
           uColorOffset={colorOffset}
           uColorMultiplier={colorMultiplier}
-          uSmallWavesElevation={smallWavesElevation}
-          uSmallWavesFrequency={smallWavesFrequency}
-          uSmallWavesSpeed={smallWavesSpeed}
-          uSmallIterations={smallIterations}
         />
       </Plane>
 
@@ -89,27 +81,19 @@ const SeaComponent = ({ route }) => {
         </Merkaba>
       </Suspense>
 
-      <Pyramid />
+      {/* <Pyramid /> */}
       <Particles
         focus={5.1}
-        speed={1}
+        speed={0.07}
         aperture={1.8}
         fov={60}
-        curl={0.25}
+        curl={0.11}
         position={[0, 3, 0]}
+        size={512}
       />
 
 
-      <mesh
-        ref={box}
-        // onClick={() => router.push(route)}
-        onPointerOver={() => setHover(true)}
-        onPointerOut={() => setHover(false)}
-        scale={hovered ? 1.1 : 1}
-      >
-        <boxBufferGeometry args={[.1, .1, .1]} />
-        <meshPhysicalMaterial color={route === '/' ? 'orange' : 'hotpink'} />
-      </mesh>
+
       <directionalLight position={[5, 5, 5]} />
       <ambientLight />
     </>
@@ -119,17 +103,17 @@ const SeaComponent = ({ route }) => {
 const SeaMaterial = new shaderMaterial(
   {
     uTime: 1,
-    uBigWavesElevation: 0.8,
-    uBigWavesFrequency: [0.2, 0.7],
-    uBigWavesSpeed: 0.75,
-    uSurfaceColor: new Color('#c1e4fe'),
+    uBigWavesElevation: 20.1,
+    uBigWavesFrequency: [1, 1],
+    uBigWavesSpeed: 0.12,
+    uSurfaceColor: new Color('#ffe4a3'), //=> morph to #ffd9c2 on beat or something like that
     uDepthColor: new Color('#0066b3'),
     uColorOffset: 0.08,
-    uColorMultiplier: 1.4,
-    uSmallWavesElevation: 0.15,
-    uSmallWavesFrequency: 3,
-    uSmallWavesSpeed: 0.2,
-    uSmallIterations: 4,
+    uColorMultiplier: 2.4,
+    uSmallWavesElevation: 1,
+    uSmallWavesFrequency: .1,
+    uSmallWavesSpeed: 0.10,
+    uSmallIterations: 2,
   },
   vertex,
   fragment

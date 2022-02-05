@@ -13,7 +13,7 @@ const LControl = () => {
     }
   }, [dom, control])
   // @ts-ignore
-  return <OrbitControls ref={control} domElement={dom.current} zoomSpeed={.1} target={[0, 3, 0]} />
+  return <OrbitControls ref={control} domElement={dom.current} zoomSpeed={.2} target={[0, 3, 0]} />
 }
 const LCanvas = ({ children }) => {
   const dom = useStore((state) => state.dom)
@@ -26,7 +26,7 @@ const LCanvas = ({ children }) => {
         position: 'absolute',
         top: 0,
       }}
-      camera={{ position: [0, 3, 6], fov: 25, far: 10000 }}
+      camera={{ position: [0, 3, 3], fov: 25, far: 10000 }}
       onCreated={(state) => state.events.connect(dom.current)}
     >
       <Suspense fallback={null}>
