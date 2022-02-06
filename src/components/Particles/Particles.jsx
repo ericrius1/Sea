@@ -30,7 +30,8 @@ export function Particles({ speed, fov, aperture, focus, curl, size = 512, ...pr
   // Update FBO and pointcloud every frame
   useFrame((state, delta) => {
     // console.log(focus)
-    pointsRef.current.rotation.y = THREE.MathUtils.damp(pointsRef.current.rotation.y, (-state.mouse.x * Math.PI) / 6, 0.75, delta)
+    pointsRef.current.rotation.y = THREE.MathUtils.damp(pointsRef.current.rotation.y, (-state.mouse.x * Math.PI * 10) / 6, 0.75, delta)
+    // curl += 0.001
     state.gl.setRenderTarget(target)
     state.gl.clear()
     state.gl.render(scene, camera)
