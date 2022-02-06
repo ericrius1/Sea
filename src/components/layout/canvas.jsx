@@ -26,7 +26,7 @@ const LCanvas = ({ children }) => {
         position: 'absolute',
         top: 0,
       }}
-      camera={{ position: [0, 3, 3], fov: 25, far: 10000 }}
+      camera={{ position: [0, 3, 6], fov: 25, far: 10000 }}
       onCreated={(state) => state.events.connect(dom.current)}
     >
       <Suspense fallback={null}>

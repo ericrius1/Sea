@@ -31,9 +31,21 @@ const SeaComponent = ({ route }) => {
     colorMultiplier
   } = useControls({
     animate: true,
-    colors: folder({ surfaceColor: '#ffd183', depthColor: '#0066b3', colorOffset: 0.08, colorMultiplier: 2.4 }),
-    bigWaves: folder({ bigWavesElevation: 1.8, bigWavesFrequency: [0.2, 0.7,], bigWaveSpeed: 0.75 }),
+    colors: folder({ surfaceColor: '#ffd183', depthColor: '#0066b3', colorOffset: 0.08, colorMultiplier: 1.4 }),
+    bigWaves: folder({ bigWavesElevation: 1.8, bigWavesFrequency: [0.2, 0.3,], bigWaveSpeed: 0.35 }),
   })
+
+  const particleProps = useControls({
+    focus: { value: 5.1, min: 3, max: 7, step: 0.01 },
+    speed: { value: 0.1, min: 0.1, max: 100, step: 0.1 },
+    aperture: { value: 1.8, min: 1, max: 5.6, step: 0.1 },
+    fov: { value: 60, min: 0, max: 200 },
+    curl: { value: 0.25, min: 0.01, max: 0.5, step: 0.01 },
+    position: { value: [0, 3, 0] }
+
+  })
+
+
 
 
   // const props = 
@@ -44,7 +56,7 @@ const SeaComponent = ({ route }) => {
   const [hovered, setHover] = useState(false)
   // Subscribe this component to the render-loop, rotate the mesh every frame
   useFrame((state, delta) => {
-    // animate && (shaderRef.current.uTime += delta)
+    animate && (shaderRef.current.uTime += delta)
   })
 
   // Return the view, these are regular Threejs elements expressed in JSX
@@ -52,7 +64,7 @@ const SeaComponent = ({ route }) => {
     <>
       <Stats></Stats>
       {/* <Leva/> */}
-      {/* <Plane args={[100, 100, 100, 100]}
+      <Plane args={[200, 200, 512, 512]}
         receiveShadow
         rotation-x={-Math.PI / 2}
         position={[0, 0.5, 0]}
@@ -69,7 +81,7 @@ const SeaComponent = ({ route }) => {
           uColorOffset={colorOffset}
           uColorMultiplier={colorMultiplier}
         />
-      </Plane> */}
+      </Plane>
 
       {/* <Stars radius={100} depth={50} count={10000} factor={4} saturation={10} fade /> */}
       <color attach="background" args={['#141852']} />
@@ -82,17 +94,15 @@ const SeaComponent = ({ route }) => {
       </Suspense>
 
       {/* <Pyramid /> */}
-      {/* <Particles
-        focus={5.1}
+      <Particles
+        {...particleProps}
+        // position={[0, 3, 0]}
         speed={0.07}
         aperture={1.8}
         fov={60}
-        curl={0.11}
-        position={[0, 3, 0]}
+        curl={0.25}
         size={512}
-      /> */}
-
-
+      />
 
       <directionalLight position={[5, 5, 5]} />
       <ambientLight />

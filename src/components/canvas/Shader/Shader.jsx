@@ -29,15 +29,15 @@ const Shader = (props) => {
   const [hovered, setHover] = useState(false)
   const router = useStore((state) => state.router)
 
-  // useFrame((state, delta) => {
-  //   if (meshRef.current) {
-  //     meshRef.current.rotation.x = meshRef.current.rotation.y += 0.01
-  //   }
-  //   if (meshRef.current.material) {
-  //     meshRef.current.material.uniforms.time.value +=
-  //       Math.sin(delta / 2) * Math.cos(delta / 2)
-  //   }
-  // })
+  useFrame((state, delta) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = meshRef.current.rotation.y += 0.01
+    }
+    if (meshRef.current.material) {
+      meshRef.current.material.uniforms.time.value +=
+        Math.sin(delta / 2) * Math.cos(delta / 2)
+    }
+  })
 
   return (
     <mesh

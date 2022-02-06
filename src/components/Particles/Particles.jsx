@@ -28,6 +28,7 @@ export function Particles({ speed, fov, aperture, focus, curl, size = 512, ...pr
   }, [size])
   // Update FBO and pointcloud every frame
   useFrame((state) => {
+    // console.log(focus)
     state.gl.setRenderTarget(target)
     state.gl.clear()
     state.gl.render(scene, camera)
@@ -38,8 +39,9 @@ export function Particles({ speed, fov, aperture, focus, curl, size = 512, ...pr
     renderRef.current.uniforms.uFov.value = THREE.MathUtils.lerp(renderRef.current.uniforms.uFov.value, fov, 0.1)
     renderRef.current.uniforms.uBlur.value = THREE.MathUtils.lerp(renderRef.current.uniforms.uBlur.value, (5.6 - aperture) * 9, 0.1)
     simRef.current.uniforms.uTime.value = state.clock.elapsedTime * speed
-    simRef.current.uniforms.uCurlFreq.value = THREE.MathUtils.lerp(simRef.current.uniforms.uCurlFreq.value, curl, 0.1)
+    simRef.current.uniforms.uCurlFreq.value = THREE.MathUtils.lerp(simRef.current.uniforms.uCurlFreq.value, curl, .1) //change here to stop the speed glitch
   })
+
   return (
     <>
       {/* Simulation goes into a FBO/Off-buffer */}
