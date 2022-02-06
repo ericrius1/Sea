@@ -32,7 +32,7 @@ const SeaComponent = ({ route }) => {
   } = useControls({
     animate: true,
     colors: folder({ surfaceColor: '#ffd183', depthColor: '#0066b3', colorOffset: 0.08, colorMultiplier: 1.4 }),
-    bigWaves: folder({ bigWavesElevation: 1.8, bigWavesFrequency: [0.2, 0.3,], bigWaveSpeed: 0.35 }),
+    bigWaves: folder({ bigWavesElevation: 1.8, bigWavesFrequency: [0.5, 0.5,], bigWaveSpeed: 0.01 }),
   })
 
   const particleProps = useControls({
@@ -40,7 +40,7 @@ const SeaComponent = ({ route }) => {
     speed: { value: 0.1, min: 0.1, max: 100, step: 0.1 },
     aperture: { value: 1.8, min: 1, max: 5.6, step: 0.1 },
     fov: { value: 60, min: 0, max: 200 },
-    curl: { value: 0.25, min: 0.01, max: 0.5, step: 0.01 },
+    curl: { value: 0.25, min: 0.001, max: 0.01, step: 0.0001 },
     position: { value: [0, 3, 0] }
 
   })
@@ -96,12 +96,8 @@ const SeaComponent = ({ route }) => {
       {/* <Pyramid /> */}
       <Particles
         {...particleProps}
-        // position={[0, 3, 0]}
-        speed={0.07}
-        aperture={1.8}
-        fov={60}
-        curl={0.25}
-        size={512}
+      // position={[0, 3, 0]}
+
       />
 
       <directionalLight position={[5, 5, 5]} />

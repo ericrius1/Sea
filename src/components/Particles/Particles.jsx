@@ -39,7 +39,7 @@ export function Particles({ speed, fov, aperture, focus, curl, size = 512, ...pr
     renderRef.current.uniforms.uFov.value = THREE.MathUtils.lerp(renderRef.current.uniforms.uFov.value, fov, 0.1)
     renderRef.current.uniforms.uBlur.value = THREE.MathUtils.lerp(renderRef.current.uniforms.uBlur.value, (5.6 - aperture) * 9, 0.1)
     simRef.current.uniforms.uTime.value = state.clock.elapsedTime * speed
-    simRef.current.uniforms.uCurlFreq.value = THREE.MathUtils.lerp(simRef.current.uniforms.uCurlFreq.value, curl, .1) //change here to stop the speed glitch
+    simRef.current.uniforms.uCurlFreq.value = THREE.MathUtils.lerp(simRef.current.uniforms.uCurlFreq.value, curl, .05) //change here to stop the speed glitch
   })
 
   return (
