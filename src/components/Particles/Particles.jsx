@@ -9,6 +9,7 @@ import './Shaders/dof/dofPointsMaterial'
 export function Particles({ speed, fov, aperture, focus, curl, size = 512, ...props }) {
   const simRef = useRef()
   const renderRef = useRef()
+  const pointsRef = useRef()
   // Set up FBO
   const [scene] = useState(() => new THREE.Scene())
   const [camera] = useState(() => new THREE.OrthographicCamera(-1, 1, 1, -1, 1 / Math.pow(2, 53), 1))
@@ -27,8 +28,9 @@ export function Particles({ speed, fov, aperture, focus, curl, size = 512, ...pr
     return particles
   }, [size])
   // Update FBO and pointcloud every frame
-  useFrame((state) => {
+  useFrame((state, delta) => {
     // console.log(focus)
+    pointsRef.current.rotation.y = THREE.MathUtils.damp(pointsRef.current.rotation.y, (-state.mouse.x * Math.PI) / 6, 0.75, delta)
     state.gl.setRenderTarget(target)
     state.gl.clear()
     state.gl.render(scene, camera)
@@ -56,7 +58,7 @@ export function Particles({ speed, fov, aperture, focus, curl, size = 512, ...pr
         scene
       )}
       {/* The result of which is forwarded into a pointcloud via data-texture */}
-      <points {...props}>
+      <points {...props} ref={pointsRef}>
         <dofPointsMaterial ref={renderRef} />
         <bufferGeometry>
           <bufferAttribute attachObject={['attributes', 'position']} count={particles.length / 3} array={particles} itemSize={3} />

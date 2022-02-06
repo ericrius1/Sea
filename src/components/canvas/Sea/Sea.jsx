@@ -31,7 +31,7 @@ const SeaComponent = ({ route }) => {
     colorMultiplier
   } = useControls({
     animate: true,
-    colors: folder({ surfaceColor: '#ffd183', depthColor: '#0066b3', colorOffset: 0.08, colorMultiplier: 1.4 }),
+    colors: folder({ surfaceColor: '#ffd183', depthColor: '#0066b3', colorOffset: 0.08, colorMultiplier: 0.7 }),
     bigWaves: folder({ bigWavesElevation: 1.8, bigWavesFrequency: [0.5, 0.5,], bigWaveSpeed: 0.01 }),
   })
 
