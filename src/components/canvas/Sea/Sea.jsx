@@ -37,14 +37,14 @@ const SeaComponent = ({ route }) => {
     bigWaves: folder({ bigWavesElevation: 1.8, bigWavesFrequency: [0.5, 0.5,], bigWaveSpeed: 0.01 }),
   })
 
-  const particleProps = useControls({
+  const [particleProps, set] = useControls(() => ({
     focus: { value: 5.1, min: 3, max: 7, step: 0.01 },
     speed: { value: 0.1, min: 0.1, max: 100, step: 0.1 },
     aperture: { value: 1.8, min: 1, max: 5.6, step: 0.1 },
     fov: { value: 60, min: 0, max: 200 },
     curl: { value: 0.25, min: 0.001, max: 0.01, step: 0.0001 },
     position: { value: [0, 3, 0] }
-  })
+  }))
 
 
 
