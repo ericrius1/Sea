@@ -41,10 +41,10 @@ export function Particles({ speed, fov, aperture, focus, curl, size = 512, ...pr
     renderRef.current.uniforms.uFov.value = THREE.MathUtils.lerp(renderRef.current.uniforms.uFov.value, fov, 0.1)
     renderRef.current.uniforms.uBlur.value = THREE.MathUtils.lerp(renderRef.current.uniforms.uBlur.value, (5.6 - aperture) * 5, 0.1)
     simRef.current.uniforms.uTime.value = state.clock.elapsedTime * speed
-    simRef.current.uniforms.uCurlFreq.value = THREE.MathUtils.lerp(simRef.current.uniforms.uCurlFreq.value, curl, .05) //change here to stop the speed glitch
+    // simRef.current.uniforms.uCurlFreq.value = THREE.MathUtils.lerp(simRef.current.uniforms.uCurlFreq.value, curl, .05) //change here to stop the speed glitch
 
-    let curlz = THREE.MathUtils.mapLinear(state.mouse.x, -1, 1, 0, .01);
-    let finalCurl = THREE.MathUtils.lerp(simRef.current.uniforms.uCurlFreq.value, curlz, 0.005);
+    let curlz = THREE.MathUtils.mapLinear(state.mouse.x, -1, 1, 0, .005);
+    let finalCurl = THREE.MathUtils.lerp(simRef.current.uniforms.uCurlFreq.value, curlz, 0.05);
     simRef.current.uniforms.uCurlFreq.value = finalCurl
 
   })
@@ -54,6 +54,7 @@ export function Particles({ speed, fov, aperture, focus, curl, size = 512, ...pr
       {/* Simulation goes into a FBO/Off-buffer */}
       {createPortal(
         <mesh>
+
           <simulationMaterial ref={simRef} />
           <bufferGeometry>
             <bufferAttribute attachObject={['attributes', 'position']} count={positions.length / 3} array={positions} itemSize={3} />
@@ -63,7 +64,8 @@ export function Particles({ speed, fov, aperture, focus, curl, size = 512, ...pr
         scene
       )}
       {/* The result of which is forwarded into a pointcloud via data-texture */}
-      <points {...props} ref={pointsRef}>
+      <points {...props} ref={pointsRef} frustumCulled={false} >
+
         <dofPointsMaterial ref={renderRef} />
         <bufferGeometry>
           <bufferAttribute attachObject={['attributes', 'position']} count={particles.length / 3} array={particles} itemSize={3} />

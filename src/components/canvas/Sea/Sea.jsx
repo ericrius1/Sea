@@ -7,7 +7,7 @@ import Pyramid from '@/components/Pyramid'
 import Merkaba from '@/components/Merkaba'
 import { Particles } from '@/components/Particles/Particles'
 import guid from 'short-uuid'
-import { Color } from 'three'
+import { Color, DoubleSide } from 'three'
 import { useSpring, animated, config } from "@react-spring/three";
 
 
@@ -33,13 +33,13 @@ const SeaComponent = ({ route }) => {
     colorMultiplier
   } = useControls({
     animate: true,
-    colors: folder({ surfaceColor: '#cfebeb', depthColor: '#0066b3', colorOffset: 0.08, colorMultiplier: 0.7 }),
+    colors: folder({ surfaceColor: '#153c41', depthColor: '#009ca7', colorOffset: 0.5, colorMultiplier: 0.44 }),
     bigWaves: folder({ bigWavesElevation: 1.8, bigWavesFrequency: [0.2, 0.44,], bigWaveSpeed: 0.01 }),
   })
 
   const [particleProps, set] = useControls(() => ({
     focus: { value: 5.1, min: 3, max: 7, step: 0.01 },
-    speed: { value: 0.15, min: 0.01, max: 2, step: 0.01 },
+    speed: { value: 0.001, min: 0.001, max: 1, step: 0.01 },
     aperture: { value: 3.5, min: 1, max: 5.6, step: 0.1 },
     fov: { value: 60, min: 0, max: 200 },
     curl: { value: 0.0001, min: 0.0001, max: .01, step: 0.0001 },
@@ -70,7 +70,7 @@ const SeaComponent = ({ route }) => {
     <>
       <Stats></Stats>
       {/* <Leva/> */}
-      <Plane args={[200, 200, 512, 512]}
+      <Plane args={[50, 50, 512, 512]}
         receiveShadow
         rotation-x={-Math.PI / 2}
         position={[0, 0.5, 0]}
@@ -86,19 +86,20 @@ const SeaComponent = ({ route }) => {
           uDepthColor={depthColor}
           uColorOffset={colorOffset}
           uColorMultiplier={colorMultiplier}
+          side={DoubleSide}
         />
       </Plane>
 
       <Stars radius={100} depth={50} count={10000} factor={4} saturation={10} fade />
       <color attach="background" args={['#140318']} />
-      <Suspense fallback={null}>
+      {/* <Suspense fallback={null}>
         <Merkaba
           scale={.02}
           rotation={[Math.PI / 4, 0, 0]}
           position={[0, 1, 0]}
         >
         </Merkaba>
-      </Suspense>
+      </Suspense> */}
 
       {/* <Pyramid /> */}
       <Particles
