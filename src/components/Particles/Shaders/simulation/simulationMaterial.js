@@ -21,7 +21,7 @@ class SimulationMaterial extends THREE.ShaderMaterial {
       vertexShader: vertex,
       fragmentShader: fragment,
       uniforms: {
-        positions: { value: new THREE.DataTexture(getSphere(1024 * 1024, 128), 1024, 1024, THREE.RGBFormat, THREE.FloatType) },
+        positions: { value: new THREE.DataTexture(getSphere(512 * 512, 128), 512, 512, THREE.RGBFormat, THREE.FloatType) },
         uTime: { value: 0 },
         uCurlFreq: { value: .01 }
       }

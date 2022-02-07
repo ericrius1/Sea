@@ -6,7 +6,7 @@
       #pragma glslify: noise = require(glsl-noise/classic/3d.glsl)      
       void main() {
         float t = uTime * 0.015;
-        vec3 pos = texture2D(positions, vUv).rgb; // basic simulation: displays the particles in place.
+        vec3 pos = texture2D(positions, vUv).rgb ; // basic simulation: displays the particles in place.
         vec3 curlPos = texture2D(positions, vUv).rgb;
         pos = curl(pos * uCurlFreq + t);
         curlPos = curl(curlPos * uCurlFreq + t);

@@ -95,6 +95,7 @@ const SeaComponent = ({ route }) => {
         <Merkaba
           scale={.02}
           rotation={[Math.PI / 4, 0, 0]}
+          position={[0, 1, 0]}
         >
         </Merkaba>
       </Suspense>
