@@ -8,6 +8,8 @@ import Merkaba from '@/components/Merkaba'
 import { Particles } from '@/components/Particles/Particles'
 import guid from 'short-uuid'
 import { Color } from 'three'
+import { useSpring, animated, config } from "@react-spring/three";
+
 
 import { Stats } from '@react-three/drei'
 
@@ -42,7 +44,6 @@ const SeaComponent = ({ route }) => {
     fov: { value: 60, min: 0, max: 200 },
     curl: { value: 0.25, min: 0.001, max: 0.01, step: 0.0001 },
     position: { value: [0, 3, 0] }
-
   })
 
 

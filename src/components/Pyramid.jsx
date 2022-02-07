@@ -8,7 +8,7 @@ export default function Pyramid({ ...props }) {
     // loop: true,
     scale: active ? 2.5 : 1,
     rotation: active ? [Math.random() * 3, Math.random() * 3, Math.random() * 3] : [Math.random(), Math.random(), Math.random()],
-    config: config.wobblt
+    config: config.wobble
   })
   return (
     <animated.mesh
