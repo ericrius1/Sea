@@ -42,7 +42,7 @@ const SeaComponent = ({ route }) => {
     speed: { value: 0.1, min: 0.1, max: 100, step: 0.1 },
     aperture: { value: 3.5, min: 1, max: 5.6, step: 0.1 },
     fov: { value: 60, min: 0, max: 200 },
-    curl: { value: 0.01, min: 0.001, max: 1, step: 0.0001 },
+    curl: { value: 0.01, min: 0.001, max: .01, step: 0.0001 },
     position: { value: [0, 3, 0] }
   }))
 
@@ -53,7 +53,6 @@ const SeaComponent = ({ route }) => {
   const { shnur } = useSpring({ config: { duration: 10000 }, shnur: 1 })
   useEffect(() => {
     shnur.start({ from: 0, to: 1 })
-    set({ curl: shnur })
   })
 
   const shaderRef = useRef()

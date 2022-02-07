@@ -6,7 +6,7 @@ import { useControls } from 'leva'
 import './Shaders/simulation/simulationMaterial'
 import './Shaders/dof/dofPointsMaterial'
 
-export function Particles({ speed, fov, aperture, focus, curl, size = 512, ...props }) {
+export function Particles({ speed, fov, aperture, focus, curl, size = 1024, ...props }) {
   const simRef = useRef()
   const renderRef = useRef()
   const pointsRef = useRef()
