@@ -43,6 +43,10 @@ export function Particles({ speed, fov, aperture, focus, curl, size = 512, ...pr
     simRef.current.uniforms.uTime.value = state.clock.elapsedTime * speed
     simRef.current.uniforms.uCurlFreq.value = THREE.MathUtils.lerp(simRef.current.uniforms.uCurlFreq.value, curl, .05) //change here to stop the speed glitch
 
+    let curlz = THREE.MathUtils.mapLinear(state.mouse.x, -1, 1, 0, .01);
+    simRef.current.uniforms.uCurlFreq.value = THREE.MathUtils.lerp(simRef.current.uniforms.uCurlFreq.value, curlz, 0.05);
+    console.log(state.mouse)
+
   })
 
   return (
