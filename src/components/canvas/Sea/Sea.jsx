@@ -1,7 +1,7 @@
 import useStore from '@/helpers/store'
 import { Plane, shaderMaterial, Stars, Stage } from '@react-three/drei'
 import { useFrame, extend } from '@react-three/fiber'
-import { useRef, useState, Suspense } from 'react'
+import { useRef, useState, Suspense, useEffect } from 'react'
 import { Leva, folder, useControls } from 'leva'
 import Pyramid from '@/components/Pyramid'
 import Merkaba from '@/components/Merkaba'
@@ -34,22 +34,27 @@ const SeaComponent = ({ route }) => {
   } = useControls({
     animate: true,
     colors: folder({ surfaceColor: '#ffd183', depthColor: '#0066b3', colorOffset: 0.08, colorMultiplier: 0.7 }),
-    bigWaves: folder({ bigWavesElevation: 1.8, bigWavesFrequency: [0.5, 0.5,], bigWaveSpeed: 0.01 }),
+    bigWaves: folder({ bigWavesElevation: 1.8, bigWavesFrequency: [0.2, 0.44,], bigWaveSpeed: 0.01 }),
   })
 
   const [particleProps, set] = useControls(() => ({
     focus: { value: 5.1, min: 3, max: 7, step: 0.01 },
     speed: { value: 0.1, min: 0.1, max: 100, step: 0.1 },
-    aperture: { value: 1.8, min: 1, max: 5.6, step: 0.1 },
+    aperture: { value: 3.5, min: 1, max: 5.6, step: 0.1 },
     fov: { value: 60, min: 0, max: 200 },
-    curl: { value: 0.25, min: 0.001, max: 0.01, step: 0.0001 },
+    curl: { value: 0.01, min: 0.001, max: 1, step: 0.0001 },
     position: { value: [0, 3, 0] }
   }))
 
+  // TODO: get change in curl valu entegrated with react spring
 
 
 
-  // const props = 
+  const { shnur } = useSpring({ config: { duration: 10000 }, shnur: 1 })
+  useEffect(() => {
+    shnur.start({ from: 0, to: 1 })
+    set({ curl: shnur })
+  })
 
   const shaderRef = useRef()
 
@@ -58,6 +63,7 @@ const SeaComponent = ({ route }) => {
   // Subscribe this component to the render-loop, rotate the mesh every frame
   useFrame((state, delta) => {
     animate && (shaderRef.current.uTime += delta)
+
   })
 
   // Return the view, these are regular Threejs elements expressed in JSX
